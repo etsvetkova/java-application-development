@@ -2,6 +2,7 @@ package com.acme.dbo.txlog.iteration02;
 
 import com.acme.dbo.txlog.Facade;
 import com.acme.dbo.txlog.SysoutCaptureAndAssertionAbility;
+import com.acme.dbo.txlog.saver.LogOperationException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
    // TODO: implement Logger solution to match specification as tests
 
     @Test
-    public void shouldLogSequentIntegersAsSum() throws IOException {
+    public void shouldLogSequentIntegersAsSum() throws LogOperationException {
         //region when
         Facade.log("str 1");
         Facade.log(1);
@@ -44,7 +45,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
+    public void shouldLogSameSubsequentStringsWithoutRepeat() throws LogOperationException {
         //region when
         Facade.log("str 1");
         Facade.log("str 2");

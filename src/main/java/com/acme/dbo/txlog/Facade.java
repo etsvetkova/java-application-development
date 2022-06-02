@@ -4,6 +4,8 @@ import com.acme.dbo.txlog.message.IntMessage;
 import com.acme.dbo.txlog.message.Message;
 import com.acme.dbo.txlog.message.StringMessage;
 import com.acme.dbo.txlog.saver.ConsoleSaver;
+import com.acme.dbo.txlog.saver.LogOperationException;
+import com.acme.dbo.txlog.saver.SaverWrapper;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -19,21 +21,21 @@ public class Facade {
     private static int strCounter = 0;
     private static int intCounter = 0;
 
-    private static LogService service = new LogService(new ConsoleSaver());
+    private static LogService service = new LogService(new SaverWrapper(new ConsoleSaver()));
 
-    public static void log(int intMessage) {
+    public static void log(int intMessage) throws LogOperationException {
         service.log(new IntMessage(intMessage));
     }
 
-    public static void log(String strMessage) {
+    public static void log(String strMessage) throws LogOperationException{
         service.log(new StringMessage(strMessage));
     }
 
-    public static void printAndFlushInt() {
+    public static void printAndFlushInt() throws LogOperationException{
       service.flush();
     }
 
-    public static void printAndFlushStr() {
+    public static void printAndFlushStr() throws LogOperationException {
         printAndFlushInt();
     }
 
@@ -60,7 +62,7 @@ public class Facade {
         }
     }
 
-    public static void close() {
+    public static void close() throws LogOperationException {
         printAndFlushInt();
     }
 
